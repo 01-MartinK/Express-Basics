@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+// public directory
+app.use(express.static('public'));
 
 app.get('/user/:username', (req, res) => {
   let user = req.params.username;
@@ -7,6 +9,6 @@ app.get('/user/:username', (req, res) => {
   res.render('index.ejs', {username: user});
 });
 
-app.listen(8080, ()=> {
+app.listen(3010, ()=> {
   console.log('Server started on http://localhost:8080');
 });
