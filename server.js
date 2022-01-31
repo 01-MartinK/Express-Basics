@@ -2,9 +2,6 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended:true}));
-
 // public directory
 app.use(express.static('public'));
 
@@ -12,23 +9,13 @@ app.use(express.static('public'));
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs');
 
-app.get('/login', (req, res) => {
-  res.render('login');
-});
+app.get('/questions', (req, res) => {
 
-app.post('/login', (req, res) => {
-  let username = req.body.username;
-  let password = req.body.password;
-
-  if(username == 'user' && password === 'qwerty'){
-    res.redirect('/dashboard');
-  } 
-
-  console.log('post request done');
-});
-
-app.get('/dashboard', (req, res) => {
-  res.render('dashboard');
+  let questions = [
+    {title: "What is Node.js?", user: "Kadi", votes: "10"}, 
+    {title: "What is Express.js?", user: "Mike", votes: "8"}, 
+  ]; 
+  res.render('index', {questions:questions});
 });
 
 app.listen(3000, ()=> {
